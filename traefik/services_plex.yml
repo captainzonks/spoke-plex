@@ -1,0 +1,25 @@
+http:
+  services:
+    plex-svc:
+      loadBalancer:
+        servers:
+          - url: http://plex:32400
+        passHostHeader: true
+        serversTransport: plex-transport
+
+    tautulli-svc:
+      loadBalancer:
+        servers:
+          - url: http://tautulli:8181
+        healthCheck:
+          path: /
+          interval: 30s
+          timeout: 5s
+
+  serversTransports:
+    plex-transport:
+      forwardingTimeouts:
+        dialTimeout: 30s
+        responseHeaderTimeout: 0s
+        idleConnTimeout: 90s
+      maxIdleConnsPerHost: 100

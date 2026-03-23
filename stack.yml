@@ -1,0 +1,70 @@
+# ==============================================================================
+# SPOKE-PLEX - MODULE MANIFEST
+# ==============================================================================
+# Description: Spoke module manifest for Plex media server and Tautulli monitoring
+# Version: 1.0.0
+# ==============================================================================
+
+name: plex
+version: "1.0.0"
+description: "Plex media server with Tautulli monitoring"
+
+############################  REQUIREMENTS
+
+requires:
+  networks:
+    - name: troxy
+      required: true
+  hub_services:
+    - traefik
+
+############################  ENVIRONMENT
+
+env:
+  hub:
+    - TZ
+    - DOMAIN
+    - SPOKE_DIR
+    - SECRETS_DIR
+    - APPDATA_DIR
+    - PUID
+    - DGID
+    - LOCALTIME
+    - INSTANCE_NAME
+    - LOCAL_IPS
+    - CA_CERT
+    - SSL_CERT_FILE
+    - REQUESTS_CA_BUNDLE
+    - CURL_CA_BUNDLE
+
+  module:
+    - PLEX_IMAGE
+    - PLEX_IP
+    - PLEX_PORT
+    - PLEX_URL
+    - PLEX_DATA_DIR
+    - TAUTULLI_IMAGE
+    - TAUTULLI_IP
+    - TAUTULLI_PORT
+    - MOVIES_DIR
+    - MOVIES_2_DIR
+    - TV_DIR
+    - MUSIC_DIR
+    - MUSIC_F_DIR
+
+############################  SECRETS
+
+secrets:
+  - name: plex_token
+    path: plex/plex_token
+    required: false
+    description: "Plex API token for Tautulli integration"
+
+############################  HEALTH
+
+health:
+  - service: plex
+    port: 32400
+  - service: tautulli
+    path: /
+    port: 8181

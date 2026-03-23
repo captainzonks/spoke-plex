@@ -1,0 +1,143 @@
+# ==============================================================================
+# SPOKE-PLEX - DOCKER COMPOSE
+# ==============================================================================
+# Description: Plex media server with Tautulli monitoring
+# Version: 1.1.1
+# Created: 2026-02-12
+# Modified: 2026-03-13
+# ==============================================================================
+# Module: plex
+# Config Sources: .env (hub vars injected by Spoke + module defaults)
+# Security: non-root where possible, secrets via /run/secrets/
+# ==============================================================================
+# Container Images:
+#   PLEX_IMAGE (lscr.io/linuxserver/plex:1.43.0)
+#   TAUTULLI_IMAGE (ghcr.io/tautulli/tautulli:v2.16.1)
+# Networks:
+#   - troxy (192.168.35.0/24) - main application network
+# ==============================================================================
+
+name: spoke-plex
+
+############################ EXTENSIONS
+
+x-ssl: &ssl
+  environment:
+    - SSL_CERT_FILE=${SSL_CERT_FILE}
+    - REQUESTS_CA_BUNDLE=${REQUESTS_CA_BUNDLE}
+    - CURL_CA_BUNDLE=${CURL_CA_BUNDLE}
+
+  volumes:
+    - ${CA_CERT}:/etc/ssl/certs/ca-certificates.crt:ro
+
+x-logging-small: &log_small
+  logging:
+    driver: json-file
+    options:
+      max-size: 10m
+      max-file: "2"
+
+############################ NETWORKS
+
+networks:
+  troxy:
+    external: true
+
+############################# SECRETS
+
+secrets:
+  plex_token:
+    file: ${SECRETS_DIR}/plex/plex_token
+
+############################# SERVICES
+
+services:
+  #======================================
+  # PLEX - Media Server
+  #======================================
+  plex:
+    <<: [*ssl, *log_small]
+    image: ${PLEX_IMAGE}
+    hostname: plex
+    container_name: plex
+    restart: on-failure
+
+    security_opt:
+      - no-new-privileges=true
+    mem_limit: 8G
+    cpus: 8.0
+
+    devices:
+      - /dev/dri/:/dev/dri/:rw
+
+    networks:
+      troxy:
+        ipv4_address: ${PLEX_IP}
+
+    ports:
+      - ${PLEX_PORT}:32400/tcp
+
+    environment:
+      - TZ=${TZ}
+      - HOSTNAME=${INSTANCE_NAME}
+      - DOMAIN=${DOMAIN}
+      - PUID=${PUID}
+      - PGID=${DGID}
+      - VERSION=public
+      - ADVERTISE_IP=${PLEX_URL},"http://${PLEX_IP}:${PLEX_PORT}/"
+      - ALLOWED_NETWORKS=${LOCAL_IPS}
+
+    volumes:
+      - ${PLEX_DATA_DIR}/:/config/:rw
+      - ${MOVIES_DIR}/:/data/media/movies/:ro
+      - ${TV_DIR}/:/data/media/tv/:ro
+      - ${MUSIC_DIR}/:/data/media/music/:ro
+      - /dev/shm/:/data/transcode/:rw
+      - ${LOCALTIME}:/etc/localtime:ro
+
+    tmpfs:
+      - /dev/shm/:rw,size=8g
+
+  #======================================
+  # TAUTULLI - Plex Monitoring
+  #======================================
+  tautulli:
+    <<: [*ssl, *log_small]
+    image: ${TAUTULLI_IMAGE}
+    hostname: tautulli
+    container_name: tautulli
+    restart: on-failure
+    init: true
+
+    security_opt:
+      - no-new-privileges=true
+    read_only: true
+    mem_limit: 256M
+    cpus: 0.5
+
+    devices:
+      - /dev/dri/:/dev/dri/:rw
+
+    networks:
+      troxy:
+        ipv4_address: ${TAUTULLI_IP}
+
+    ports:
+      - ${TAUTULLI_PORT}:8181
+
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${DGID}
+
+    volumes:
+      - ${APPDATA_DIR}/tautulli/config/:/config/:rw
+      - ${PLEX_DATA_DIR}/Library/Application Support/Plex Media Server/Logs/:/plex_logs/:ro
+      - ${LOCALTIME}:/etc/localtime:ro
+
+    tmpfs:
+      - /tmp/:rw,size=100m
+      - /run/:rw,size=50m
+
+    secrets:
+      - plex_token

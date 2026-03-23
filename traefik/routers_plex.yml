@@ -1,0 +1,28 @@
+http:
+  routers:
+    plex-static-assets:
+      rule: Host(`plex.{{ env "DOMAIN" }}`) && (PathPrefix(`/web/js/`) || PathPrefix(`/web/chunk-`) || PathPrefix(`/web/fonts/`) || PathPrefix(`/web/images/`))
+      entryPoints: "websecure"
+      priority: 200
+      middlewares: chain-static-assets@file
+      service: plex-svc@file
+
+    plex:
+      rule: Host(`plex.{{ env "DOMAIN" }}`)
+      entryPoints: "websecure"
+      middlewares: chain-media@file
+      service: plex-svc@file
+
+    tautulli-api:
+      rule: Host(`tau.{{ env "DOMAIN" }}`) && PathPrefix(`/api`)
+      entryPoints: "websecure"
+      priority: 200
+      middlewares: chain-api@file
+      service: tautulli-svc@file
+
+    tautulli-web:
+      rule: Host(`tau.{{ env "DOMAIN" }}`)
+      entryPoints: "websecure"
+      priority: 100
+      middlewares: chain-authentik-no-crowdsec@file
+      service: tautulli-svc@file
