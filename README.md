@@ -1,5 +1,7 @@
 # spoke-plex
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/E1E21U3S1R)
+
 Spoke module for [Plex](https://www.plex.tv/) media server with [Tautulli](https://tautulli.com/) monitoring.
 
 ## Services
