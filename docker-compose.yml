@@ -11,7 +11,7 @@
 # Security: non-root where possible, secrets via /run/secrets/
 # ==============================================================================
 # Container Images:
-#   PLEX_IMAGE (lscr.io/linuxserver/plex:1.43.0)
+#   PLEX_IMAGE (lscr.io/linuxserver/plex:version-1.43.0.10492-121068a07)
 #   TAUTULLI_IMAGE (ghcr.io/tautulli/tautulli:v2.17.0)
 # Networks:
 #   - troxy (192.168.35.0/24) - main application network

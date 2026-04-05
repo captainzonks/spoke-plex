@@ -29,7 +29,7 @@ docker compose up -d
 
 | Variable        | Default                              | Description                 |
 |-----------------|--------------------------------------|-----------------------------|
-| `PLEX_IMAGE`    | `lscr.io/linuxserver/plex:1.43.0`    | Plex container image        |
+| `PLEX_IMAGE`    | `lscr.io/linuxserver/plex:version-1.43.0.10492-121068a07` | Plex container image |
 | `TAUTULLI_IMAGE`| `ghcr.io/tautulli/tautulli:v2.17.0`  | Tautulli container image    |
 | `PLEX_IP`       | `192.168.35.83`                      | Plex static IP              |
 | `PLEX_PORT`     | `32400`                              | Plex server port            |
