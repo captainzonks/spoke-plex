@@ -2,7 +2,7 @@
 # SPOKE-PLEX - DOCKER COMPOSE
 # ==============================================================================
 # Description: Plex media server with Tautulli monitoring
-# Version: 1.2.2
+# Version: 1.2.3
 # Created: 2026-02-12
 # Modified: 2026-04-10
 # ==============================================================================
@@ -93,6 +93,7 @@ services:
       - ${TV_DIR}/:/data/media/tv/:ro
       - ${MUSIC_DIR}/:/data/media/music/:ro
       - /dev/shm/:/data/transcode/:rw
+      - ${PLEX_DOWNLOADS_DIR}/:/data/downloads/:rw
       - ${LOCALTIME}:/etc/localtime:ro
 
     tmpfs:
