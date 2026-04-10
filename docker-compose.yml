@@ -2,16 +2,16 @@
 # SPOKE-PLEX - DOCKER COMPOSE
 # ==============================================================================
 # Description: Plex media server with Tautulli monitoring
-# Version: 1.2.1
+# Version: 1.2.2
 # Created: 2026-02-12
-# Modified: 2026-04-08
+# Modified: 2026-04-10
 # ==============================================================================
 # Module: plex
 # Config Sources: .env (hub vars injected by Spoke + module defaults)
 # Security: non-root where possible, secrets via /run/secrets/
 # ==============================================================================
 # Container Images:
-#   PLEX_IMAGE (lscr.io/linuxserver/plex:version-1.43.1.10576-06378bdcd)
+#   PLEX_IMAGE (lscr.io/linuxserver/plex:version-1.43.1.10611-1e34174b1)
 #   TAUTULLI_IMAGE (ghcr.io/tautulli/tautulli:v2.17.0)
 # Networks:
 #   - troxy (192.168.35.0/24) - main application network
