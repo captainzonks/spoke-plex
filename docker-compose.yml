@@ -1,20 +1,32 @@
 # ==============================================================================
-# SPOKE-PLEX - DOCKER COMPOSE
+# PLEX MODULE - DOCKER COMPOSE
 # ==============================================================================
 # Description: Plex media server with Tautulli monitoring
-# Version: 1.2.3
+# Author: Matt Barham
 # Created: 2026-02-12
-# Modified: 2026-04-10
+# Modified: 2026-04-21
+# Version: 1.2.4
+# Host: Your Server
 # ==============================================================================
-# Module: plex
-# Config Sources: .env (hub vars injected by Spoke + module defaults)
-# Security: non-root where possible, secrets via /run/secrets/
+# Component: module: plex
+# Config Sources: base.env + .env.example + modules.yml overrides → .env (generated)
+# Security: non-root where possible, secrets via /run/secrets/, caps dropped
+# Hardware: Intel GPU passthrough for hardware transcoding
 # ==============================================================================
 # Container Images:
-#   PLEX_IMAGE (lscr.io/linuxserver/plex:version-1.43.1.10611-1e34174b1)
-#   TAUTULLI_IMAGE (ghcr.io/tautulli/tautulli:v2.17.0)
+#   See modules/plex/.env.example for complete image paths and versions
+#   (PLEX_IMAGE, TAUTULLI_IMAGE)
+# Documentation:
+#   - Plex (LinuxServer): https://docs.linuxserver.io/images/docker-plex/
+#   - Tautulli: https://github.com/Tautulli/Tautulli/wiki
 # Networks:
 #   - troxy (192.168.35.0/24) - main application network
+# Dependencies:
+#   - Hub: traefik (routing), authentik (forward auth for Tautulli)
+# External Integrations:
+#   - [x] Traefik routing
+#   - [x] Authentik forward auth (Tautulli)
+#   - [x] Intel GPU hardware transcoding
 # ==============================================================================
 
 name: spoke-plex

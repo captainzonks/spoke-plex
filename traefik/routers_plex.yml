@@ -1,3 +1,17 @@
+# ==============================================================================
+# PLEX MODULE - TRAEFIK ROUTERS
+# ==============================================================================
+# Description: Traefik dynamic router definitions for the plex module
+# Author: Matt Barham
+# Created: 2026-02-12
+# Modified: 2026-04-21
+# Version: 1.0.1
+# Host: Your Server
+# ==============================================================================
+# Type: Traefik Dynamic Config (routers)
+# Component: module: plex
+# ==============================================================================
+
 http:
   routers:
     plex-static-assets:
