@@ -1,5 +1,21 @@
 # spoke-plex
 
+<!--
+==============================================================================
+README.md - spoke-plex module documentation
+==============================================================================
+Description: Plex media server with Tautulli monitoring Spoke module
+Author: Matt Barham
+Created: 2026-02-12
+Modified: 2026-04-21
+Version: 1.2.4
+==============================================================================
+Document Type: Reference
+Audience: Developer
+Status: Final
+==============================================================================
+-->
+
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/E1E21U3S1R)
 
 Spoke module for [Plex](https://www.plex.tv/) media server with [Tautulli](https://tautulli.com/) monitoring.

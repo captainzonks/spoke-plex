@@ -1,8 +1,15 @@
 # ==============================================================================
-# SPOKE-PLEX - MODULE MANIFEST
+# PLEX MODULE - STACK MANIFEST
 # ==============================================================================
 # Description: Spoke module manifest for Plex media server and Tautulli monitoring
-# Version: 1.0.0
+# Author: Matt Barham
+# Created: 2026-02-12
+# Modified: 2026-04-21
+# Version: 1.0.1
+# Host: Your Server
+# ==============================================================================
+# Type: Module Manifest
+# Component: module: plex
 # ==============================================================================
 
 name: plex
