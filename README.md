@@ -7,8 +7,8 @@ README.md - spoke-plex module documentation
 Description: Plex media server with Tautulli monitoring Spoke module
 Author: Matt Barham
 Created: 2026-02-12
-Modified: 2026-04-21
-Version: 1.2.4
+Modified: 2026-05-07
+Version: 1.2.5
 ==============================================================================
 Document Type: Reference
 Audience: Developer
@@ -46,7 +46,7 @@ docker compose up -d
 | Variable        | Default                              | Description                 |
 |-----------------|--------------------------------------|-----------------------------|
 | `PLEX_IMAGE`    | `lscr.io/linuxserver/plex:version-1.43.0.10492-121068a07` | Plex container image |
-| `TAUTULLI_IMAGE`| `ghcr.io/tautulli/tautulli:v2.17.0`  | Tautulli container image    |
+| `TAUTULLI_IMAGE`| `ghcr.io/tautulli/tautulli:v2.17.1`  | Tautulli container image    |
 | `PLEX_IP`       | `192.168.35.83`                      | Plex static IP              |
 | `PLEX_PORT`     | `32400`                              | Plex server port            |
 | `PLEX_URL`      | `https://plex.${DOMAIN}`             | Plex advertise URL          |
